@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js" FFvkyDcVO7KFA=="
+        crossorigin=" anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+
+<body>
+
+    <!-- 
+    ng-init should have values separated by semicolon 
+     ng-app - angular module
+     ng-controller - angular controller 
+    -->
+    <form ng-app="myApp" ng-controller="myCtrl"
+        ng-init="teamName='India'; team={c:'Rohit',vc:'Kohli'}; bowlers=['Bumrah','Ashwin','Siraj']" name="myForm">
+
+        <!-- dynamic name from init/scope/text; preference : init > scope ; filter to uppercase -->
+        <h1>Hello {{name | uppercase }} </h1>
+        <p>Enter Name: <input type="text" ng-model="name"></p>
+
+        <!-- display from map -->
+        <p>Team Name: {{teamName}}</p>
+
+        <!-- display from Object -->
+        <p>Captain: {{team.c}}</p>
+        <p>Vice-Captain: {{team.vc}}</p>
+
+        <!-- display from Array -->
+        <p>Key Bowler: {{bowlers[0]}} </p>
+
+        <!-- display all bowlers on click of button -->
+        <button ng-click="displayAllBowlers()">All Bowlers</button>
+        <!-- orderBy Filter-->
+        <span id="allBowlers" ng-repeat="x in allBowlers | orderBy : x">{{x}}</span>
+
+        <!-- ng-model is required for the status to be displayed -->
+        <p>Email ID: <input type="email" name="emailInput" ng-model="abcd" required></p>
+        <!-- formName.inputName.$valid-->
+        <p>status of email: {{myForm.emailInput.$valid}}</p>
+
+
+    </form>
+
+    <!--  This script tag is mandatory. i.e defining angular module. Without this, above code won't work -->
+    <script>
+        angular.module('myApp', []).controller('myCtrl', function ($scope) {
+            $scope.name = 'Surya',
+                $scope.displayAllBowlers = function () {
+                    $scope.allBowlers = ['Bumrah', 'Ash', 'Siraj', 'Chahal', 'Jaddu']
+                }
+
+        })
+    </script>
+
+    <style>
+        #allBowlers {
+            border: 1px solid lightblue;
+            padding: 5px;
+        }
+        input.ng-valid {
+            background-color: rgb(84, 196, 84);
+        }
+        input.ng-invalid{
+            background-color: rgb(247, 40, 40);
+        }
+    </style>
+
+</body>
+
+</html>
